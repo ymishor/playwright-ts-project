@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test';
+import  LoginPage  from '../pages/LoginPage';
+import UserCredientials from '../helpers/UserCredentials';
+import ApplicationURL from '../helpers/ApplicationURL';
+
+
 
 test('test', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
-  await page.locator('[data-test="username"]').click();
-  await page.locator('[data-test="username"]').fill('standard_user');
-  await page.locator('[data-test="password"]').click();
-  await page.locator('[data-test="password"]').fill('secret_sauce');
-  await page.locator('[data-test="login-button"]').click();
+  const loginpage = new LoginPage(page);
+  await loginpage.loginToApplication( UserCredientials.STANDARD_USER,UserCredientials.CORRECT_PASSWORD,ApplicationURL.BASEURL);
   await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
   await page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]').click();
   await page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
